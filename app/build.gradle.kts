@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -61,6 +62,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.activity:activity-compose:1.3.0-alpha07")
+    implementation(libs.play.services.analytics.impl)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -72,4 +74,29 @@ dependencies {
     //Tab Layout
     implementation("com.google.accompanist:accompanist-pager:0.23.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.23.0")
+
+    // Jetpack Compose
+    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.4")
+
+    // Retrofit for network requests
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Coroutines for asynchronous programming
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
+
+    //Carregar imagens
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+    implementation("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+
+
 }

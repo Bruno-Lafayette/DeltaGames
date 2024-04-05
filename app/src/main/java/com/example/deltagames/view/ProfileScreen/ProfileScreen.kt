@@ -15,7 +15,6 @@ import com.google.accompanist.pager.rememberPagerState
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ProfileScreen() {
-
     val  list = listOf(TabItem.Login, TabItem.Register)
     val pagerState = rememberPagerState()
     Column(
