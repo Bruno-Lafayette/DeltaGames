@@ -1,15 +1,19 @@
 package com.example.deltagames.view.homeScreen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.TopAppBar
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,7 +62,16 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
 
         ) {
             if (products.isEmpty()){
-                Text(text = "Carregando")
+               Box(
+                   modifier = Modifier.fillMaxSize(),
+                   contentAlignment = Alignment.Center
+
+               ){
+                   CircularProgressIndicator(
+                       modifier = Modifier.width(64.dp),
+                       color = MaterialTheme.colorScheme.secondary,
+                   )
+               }
             } else {
                 SearchBarProducts()
                 LazyVerticalStaggeredGrid(
