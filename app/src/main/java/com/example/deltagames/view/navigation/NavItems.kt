@@ -26,7 +26,7 @@ val listOfNavItems = listOf(
         route = Screens.SearchScreen.name
     ),
     NavItem(
-        label = "Sacola",
+        label = "Carrinho",
         icon = Icons.Default.ShoppingCart,
         route = Screens.CartScreen.name
     ),

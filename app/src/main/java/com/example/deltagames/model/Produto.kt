@@ -12,6 +12,6 @@ data class Produto(
     val PRODUTO_DESCONTO:   Double,
     val CATEGORIA_ID:       Int,
     val PRODUTO_ATIVO:      Int,
-    val IMAGEM_URL: String
+    val IMAGEM_URL:         String
 
 ): Parcelable
