@@ -7,17 +7,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.deltagames.R
+import com.example.deltagames.util.ContextProvider
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun TabContent(tabs:List<TabItem>, pagerState: PagerState){
+fun TabContent(tabs:List<TabItem>, pagerState: PagerState, contextProvider: ContextProvider){
     HorizontalPager(
         count = tabs.size,
         state = pagerState,
     ) {page ->
-        tabs[page].screens()
+        tabs[page].screens(contextProvider)
     }
 }

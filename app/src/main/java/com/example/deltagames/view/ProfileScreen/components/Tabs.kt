@@ -106,11 +106,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState){
                     icon = { /*TODO*/ })
             }
         }
-
-
     }
-
-
 }
 
 

@@ -1,5 +1,7 @@
 package com.example.deltagames.view.loginScreen
 
+import android.app.AlertDialog
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,17 +19,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.deltagames.R
+import com.example.deltagames.model.LoginRequest
+import com.example.deltagames.model.Usuario
+import com.example.deltagames.util.ContextProvider
 import com.example.deltagames.view.loginScreen.components.TextFieldCustom
+import com.example.deltagames.viewModel.LoginViewModel
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 @ExperimentalMaterial3Api
 @Composable
-fun LoginScreen(){
+fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
+    var email by remember { mutableStateOf("") }
+    var pass by remember { mutableStateOf("") }
+    val coroutineScope = rememberCoroutineScope()
+
+    val loginResult: (Usuario?) -> Unit = { usuario ->
+       if ( usuario?.userEmail != null ){
+           println(usuario?.id)
+       } else {
+            showAlertDialog(contextProvider.context,"Acesso negado", "Usuário ou senha inválido")
+       }
+    }
+
+    fun startLogin() {
+        coroutineScope.launch {
+            vmLogin.login(LoginRequest(email, pass), loginResult)
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,8 +62,7 @@ fun LoginScreen(){
         ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var email by remember { mutableStateOf("") }
-        var pass by remember { mutableStateOf("") }
+
         TextFieldCustom(
             input = email,
             icon = Icons.Default.Email,
@@ -59,8 +85,11 @@ fun LoginScreen(){
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
         onClick = {
-            println(email)
-            println(pass)
+            try {
+                startLogin()
+            } catch (e: Exception) {
+                println("Erro na chamada startLogin----> ${e.message}")
+            }
         }
     ) {
         Text(text = "Login")
@@ -68,4 +97,15 @@ fun LoginScreen(){
 
     }
 
+}
+
+fun showAlertDialog(context: Context, title: String, message: String) {
+    val builder = AlertDialog.Builder(context)
+    builder.setTitle(title)
+        .setMessage(message)
+    builder.setPositiveButton("OK") { dialog, _ ->
+        dialog.dismiss()
+    }
+    val alertDialog = builder.create()
+    alertDialog.show()
 }
