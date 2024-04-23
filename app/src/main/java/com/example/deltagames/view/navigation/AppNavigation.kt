@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.deltagames.model.Produto
+import com.example.deltagames.util.ContextProvider
 import com.example.deltagames.view.CartScreen.CartScreen
 import com.example.deltagames.view.homeScreen.HomeScreen
 import com.example.deltagames.view.ProfileScreen.ProfileScreen
@@ -30,7 +31,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 @Composable
- fun AppNavigation(viewModel: HomeViewModel ) {
+ fun AppNavigation(viewModel: HomeViewModel, context: ContextProvider ) {
      val navController = rememberNavController()
     Scaffold (bottomBar = {
 
@@ -73,7 +74,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
                 CartScreen()
             }
             composable(route = Screens.ProfileScreen.name) {
-                ProfileScreen()
+                ProfileScreen(contextProvider = context)
             }
             composable(route = Screens.ProductDetail.name){backStackEntry ->
                ProductDetail(navController = navController) 

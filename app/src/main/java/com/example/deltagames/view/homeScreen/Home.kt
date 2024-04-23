@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,6 +39,7 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
 
     LaunchedEffect(Unit) {
         viewModel.fetchProducts()
+        println(products)
     }
 
     Scaffold(
@@ -67,10 +69,13 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
                    contentAlignment = Alignment.Center
 
                ){
-                   CircularProgressIndicator(
-                       modifier = Modifier.width(64.dp),
-                       color = MaterialTheme.colorScheme.secondary,
-                   )
+                  Column {
+                      CircularProgressIndicator(
+                          modifier = Modifier.width(64.dp).padding(bottom = 32.dp),
+                          color = MaterialTheme.colorScheme.secondary,
+                      )
+                      Text(text = "Carregando...")
+                  }
                }
             } else {
                 SearchBarProducts()
