@@ -1,7 +1,6 @@
 package com.example.deltagames.view.homeScreen.components
 
 
-import android.os.Bundle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -19,11 +18,11 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.deltagames.model.Produto
 import com.example.deltagames.view.navigation.Screens
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.example.deltagames.viewModel.SharedProductViewModel
+
 
 @Composable
-fun CardProduct(product: Produto, navController: NavController){
+fun CardProduct(product: Produto, navController: NavController, sharedProductViewModel: SharedProductViewModel){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -36,14 +35,8 @@ fun CardProduct(product: Produto, navController: NavController){
                     .clickable {
                         try {
                             product?.let { nonNullProduct ->
-                                val moshi = Moshi.Builder()
-                                    .add(KotlinJsonAdapterFactory())
-                                    .build()
-                                val jsonAdapter = moshi.adapter(Produto::class.java)
-                                val productJson = jsonAdapter.toJson(nonNullProduct)
-                                navController.navigate("${Screens.ProductDetail.name}?${productJson}")
-                            } ?: run {
-                                println("Erro: Objeto 'product' é nulo.")
+                                sharedProductViewModel.addProduct(nonNullProduct)
+                                navController.navigate(Screens.ProductDetail.name)
                             }
                         } catch (e: Exception) {
                             println("Erro ao serializar objeto para JSON: ${e.message}")

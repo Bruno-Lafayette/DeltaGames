@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,22 +23,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.deltagames.view.homeScreen.components.CardProduct
 import com.example.deltagames.view.homeScreen.components.SearchBarProducts
 import com.example.deltagames.viewModel.HomeViewModel
+import com.example.deltagames.viewModel.SharedProductViewModel
 
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    navController: NavHostController,
+    sharedProductViewModel: SharedProductViewModel
+) {
     val products by viewModel.products.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
         viewModel.fetchProducts()
-        println(products)
     }
 
     Scaffold(
@@ -86,7 +88,7 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavHostController) {
                     contentPadding = PaddingValues(4.dp)
                 ) {
                     items(products) { product ->
-                        CardProduct(product = product, navController = navController)
+                        CardProduct(product = product, navController = navController, sharedProductViewModel)
                     }
                 }
             }
