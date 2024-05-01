@@ -23,13 +23,16 @@ import com.example.deltagames.view.homeScreen.HomeScreen
 import com.example.deltagames.view.ProfileScreen.ProfileScreen
 import com.example.deltagames.view.SearchScreen.SearchScreen
 import com.example.deltagames.view.productDetailScreen.ProductDetail
+import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.HomeViewModel
+import com.example.deltagames.viewModel.LoginViewModel
 import com.example.deltagames.viewModel.SharedProductViewModel
 
 @Composable
  fun AppNavigation(viewModel: HomeViewModel, context: ContextProvider ) {
      val navController = rememberNavController()
     val sharedProductViewModel: SharedProductViewModel = viewModel()
+    val vmCart: CartViewModel = viewModel()
     Scaffold (bottomBar = {
 
         NavigationBar {
@@ -74,7 +77,7 @@ import com.example.deltagames.viewModel.SharedProductViewModel
                 ProfileScreen(contextProvider = context)
             }
             composable(route = Screens.ProductDetail.name){backStackEntry ->
-               ProductDetail(navController = navController, sharedProductViewModel )
+               ProductDetail(navController = navController, sharedProductViewModel, context.context , vmCart, LoginViewModel.getInstanceUnique() )
             }
         }
 

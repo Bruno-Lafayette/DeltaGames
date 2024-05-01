@@ -43,9 +43,17 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
 
     val loginResult: (Usuario?) -> Unit = { usuario ->
        if ( usuario?.userEmail != null ){
-           println(usuario?.id)
+           vmLogin.user = usuario
+           vmLogin.isActive = true
+           showAlertDialog(contextProvider.context,
+               "Login Efetuado com Sucesso",
+               "Bem vindo de volta ${vmLogin.user!!.name}")
+           email = ""
+           pass = ""
        } else {
             showAlertDialog(contextProvider.context,"Acesso negado", "Usuário ou senha inválido")
+           email = ""
+           pass = ""
        }
     }
 
@@ -69,7 +77,6 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
             placeHolder = "E-mail"
         ) {newValue->
             email = newValue
-            println(newValue)
         }
         TextFieldCustom(
             input = pass,

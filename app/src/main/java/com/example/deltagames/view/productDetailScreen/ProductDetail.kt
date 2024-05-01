@@ -1,6 +1,7 @@
 package com.example.deltagames.view.productDetailScreen
 
 
+import android.content.Context
 import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -40,15 +41,23 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.deltagames.R
+import com.example.deltagames.model.CarrinhoItem
+import com.example.deltagames.util.ContextProvider
 import com.example.deltagames.util.component.CounterComponent
+import com.example.deltagames.view.loginScreen.showAlertDialog
 import com.example.deltagames.view.navigation.Screens
+import com.example.deltagames.viewModel.CartViewModel
+import com.example.deltagames.viewModel.LoginViewModel
 import com.example.deltagames.viewModel.SharedProductViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetail(
     navController: NavController,
-    sharedProductViewModel: SharedProductViewModel
+    sharedProductViewModel: SharedProductViewModel,
+    context: Context,
+    vmCart: CartViewModel,
+    vmUser: LoginViewModel
 ){
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val price = sharedProductViewModel.priceStringFormat().first
@@ -122,20 +131,32 @@ fun ProductDetail(
                 Text(text = produto.PRODUTO_DESC,
                     modifier = Modifier.padding(8.dp)
                 )
-                if (productIsActive){
-                    Button(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        shape = RoundedCornerShape(8.dp),
-                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
-                        onClick = {
-
+                if (vmUser.isActive){
+                    if (productIsActive){
+                        Button(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+                            onClick = {
+                                vmCart.addProductCart(CarrinhoItem(vmUser.user!!.id, produto.PRODUTO_ID, finalValue)) { response ->
+                                    response?.let {
+                                        showAlertDialog(context, "Olha no que deu",
+                                            it.message
+                                        )
+                                    }
+                                }
+                            }
+                        ) {
+                            Text(text = "Adicionar Carrinho")
                         }
-                    ) {
-                        Text(text = "Adicionar Carrinho")
                     }
+
+                } else {
+                    Text(text = "Para adicionar produto no carrinho necessário fazer Login")
                 }
+
             }
         }
     }
