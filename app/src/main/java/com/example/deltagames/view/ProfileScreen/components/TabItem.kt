@@ -21,7 +21,7 @@ sealed class TabItem(
         title = "Entrar na sua conta",
         subTitle = "A melhor forma de se divertir comprando",
         labelButton = "Entrar",
-        screens = { context -> LoginScreen(vmLogin = LoginViewModel(), contextProvider = context) }
+        screens = { context -> LoginScreen(vmLogin = LoginViewModel.getInstanceUnique(), contextProvider = context) }
     )
 
     object Register: TabItem(

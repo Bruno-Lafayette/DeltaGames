@@ -15,6 +15,7 @@ class HomeViewModel: ViewModel() {
     private val repository = ProductRepository()
     private val _products = MutableLiveData<List<Produto>>()
     val products = _products
+
     fun fetchProducts(){
         viewModelScope.launch {
             try {

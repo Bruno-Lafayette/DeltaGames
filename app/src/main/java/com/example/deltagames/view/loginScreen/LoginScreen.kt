@@ -32,7 +32,6 @@ import com.example.deltagames.util.ContextProvider
 import com.example.deltagames.view.loginScreen.components.TextFieldCustom
 import com.example.deltagames.viewModel.LoginViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 @ExperimentalMaterial3Api
 @Composable
@@ -43,9 +42,17 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
 
     val loginResult: (Usuario?) -> Unit = { usuario ->
        if ( usuario?.userEmail != null ){
-           println(usuario?.id)
+           vmLogin.user = usuario
+           vmLogin.isActive.value = true
+           showAlertDialog(contextProvider.context,
+               "Login Efetuado com Sucesso",
+               "Bem vindo de volta ${vmLogin.user!!.name}")
+           email = ""
+           pass = ""
        } else {
             showAlertDialog(contextProvider.context,"Acesso negado", "Usuário ou senha inválido")
+           email = ""
+           pass = ""
        }
     }
 
@@ -69,7 +76,6 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
             placeHolder = "E-mail"
         ) {newValue->
             email = newValue
-            println(newValue)
         }
         TextFieldCustom(
             input = pass,
