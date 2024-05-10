@@ -1,6 +1,5 @@
 package com.example.deltagames.view.cartScreen.components
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.deltagames.model.CarrinhoItem
 import com.example.deltagames.model.Produto
-import com.example.deltagames.util.component.CounterComponentHorizontal
+import com.example.deltagames.util.component.VerticalCounterComponent
 import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.LoginViewModel
 
@@ -37,7 +37,7 @@ import com.example.deltagames.viewModel.LoginViewModel
 fun CardProduct(
     vmUser: LoginViewModel,
     product: Pair<Produto, Int>,
-    vmCart: CartViewModel
+    vmCart: CartViewModel,
 ){
 
     fun price(price: Double?, desc: Double?): String {
@@ -55,6 +55,7 @@ fun CardProduct(
     ) {
 
     Row (
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
     ) {
         AsyncImage(
@@ -68,7 +69,6 @@ fun CardProduct(
 
         )
         Column(
-            verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .width(180.dp)
                 .padding(top = 8.dp)
@@ -91,7 +91,7 @@ fun CardProduct(
 
             }
         }
-        CounterComponentHorizontal(product.second)
+        VerticalCounterComponent(product.second, vmCart, product.first.PRODUTO_ID)
     }
     }
 }

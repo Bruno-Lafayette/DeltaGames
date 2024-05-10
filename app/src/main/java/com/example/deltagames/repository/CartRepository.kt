@@ -35,9 +35,7 @@ class CartRepository {
         apiService.removeProduct(product).enqueue(object: Callback<ResponseAPI?>{
             override fun onResponse(call: Call<ResponseAPI?>, response: Response<ResponseAPI?>) {
                 if (response.isSuccessful){
-                    println(product)
                     callback(response.body())
-
                 }else {
                     callback(null)
                 }

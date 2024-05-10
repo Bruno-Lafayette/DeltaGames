@@ -68,13 +68,13 @@ fun ProfileScreen(contextProvider: ContextProvider) {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color.White)
-                    .padding(top = contentPadding.calculateTopPadding()).padding(16.dp),
+                    .padding(top = contentPadding.calculateTopPadding())
+                    .padding(16.dp),
             ) {
                 Text(text = "Usuario: ${userViewModel.user!!.name}")
                 Text(text = "Email: ${userViewModel.user!!.userEmail}")
                 Text(text = "CPF: ${userViewModel.user!!.cpf}")
             }
-
         }
     } else {
         Column(

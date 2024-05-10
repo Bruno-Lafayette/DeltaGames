@@ -1,6 +1,6 @@
 package com.example.deltagames.util.component
 
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,20 +23,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.deltagames.R
-
+import com.example.deltagames.model.CarrinhoItem
+import com.example.deltagames.viewModel.CartViewModel
+import com.example.deltagames.viewModel.LoginViewModel
 
 @Composable
-fun CounterComponentHorizontal(initialValue: Int = 1) {
+fun VerticalCounterComponent(initialValue: Int, vmCart: CartViewModel, idProduct: Int) {
     var counter by remember { mutableStateOf(initialValue) }
+    val idUser = LoginViewModel.getInstanceUnique().user!!.id
     Card(
         modifier = Modifier.padding(horizontal = 8.dp),
         elevation = 0.dp
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { if (counter > 1) counter-- },
+                onClick = { if (counter > 1) {counter--
+                    vmCart.addProductCart(CarrinhoItem(idUser, idProduct, counter )){
+                    }
+                }},
                 shape = RoundedCornerShape(25.dp),
                 modifier = Modifier
                     .height(38.dp)
@@ -58,7 +64,10 @@ fun CounterComponentHorizontal(initialValue: Int = 1) {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Button(
-                onClick = { counter++ },
+                onClick = { counter++
+                    vmCart.addProductCart(CarrinhoItem(idUser, idProduct, counter )){
+                    }
+                          },
                 shape = RoundedCornerShape(25.dp),
                 modifier = Modifier
                     .height(38.dp)
@@ -75,4 +84,3 @@ fun CounterComponentHorizontal(initialValue: Int = 1) {
         }
     }
 }
-

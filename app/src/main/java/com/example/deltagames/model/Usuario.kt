@@ -9,5 +9,6 @@ data class Usuario (
     val id: Int,
     val name: String,
     val userEmail: String,
-    val cpf: String
+    val cpf: String,
+    val password: String
 ): Parcelable

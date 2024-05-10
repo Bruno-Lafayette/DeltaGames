@@ -3,6 +3,7 @@ package com.example.deltagames.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.deltagames.model.LoginRequest
+import com.example.deltagames.model.ResponseAPI
 import com.example.deltagames.model.Usuario
 import com.example.deltagames.repository.UserRepository
 
@@ -24,5 +25,9 @@ class LoginViewModel: ViewModel() {
 
     fun login(loginRequest: LoginRequest, callback: (Usuario?) -> Unit) {
         repository.login(loginRequest, callback)
+    }
+
+    fun register(user: Usuario, callback: (ResponseAPI?)-> Unit){
+        repository.register(user, callback)
     }
 }

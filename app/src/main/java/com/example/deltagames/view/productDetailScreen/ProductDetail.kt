@@ -4,9 +4,11 @@ package com.example.deltagames.view.productDetailScreen
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,8 +43,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.deltagames.R
 import com.example.deltagames.model.CarrinhoItem
-import com.example.deltagames.util.component.CounterComponentHorizontal
-import com.example.deltagames.view.loginScreen.showAlertDialog
+import com.example.deltagames.util.component.HorizontalCounterComponent
+import com.example.deltagames.util.component.showAlertDialog
 import com.example.deltagames.view.navigation.Screens
 import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.LoginViewModel
@@ -118,7 +120,10 @@ fun ProductDetail(
                         modifier = Modifier.padding(8.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    CounterComponentHorizontal(finalValue)
+                    HorizontalCounterComponent(finalValue){newValue ->
+                        finalValue = newValue
+
+                    }
                 }
                 Text(
                     text = "Descrição do Game",
@@ -140,8 +145,10 @@ fun ProductDetail(
                             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
                             onClick = {
                                 vmCart.addProductCart(CarrinhoItem(vmUser.user!!.id, produto.PRODUTO_ID, finalValue)) { response ->
+                                    println("###############VALOR FINAL##################")
+                                    println(finalValue)
                                     response?.let {
-                                        showAlertDialog(context, "Olha no que deu",
+                                        showAlertDialog(context, "Sucesso",
                                             it.message
                                         )
                                     }
@@ -153,7 +160,13 @@ fun ProductDetail(
                     }
 
                 } else {
-                    Text(text = "Para adicionar produto no carrinho necessário fazer Login")
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ){
+                        Text(text = "Para adicionar produto no carrinho necessário fazer Login")
+                    }
                 }
 
             }

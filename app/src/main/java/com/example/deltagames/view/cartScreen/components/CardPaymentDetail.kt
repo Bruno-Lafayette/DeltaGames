@@ -11,15 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.deltagames.model.Produto
 
-@Preview
 @Composable
 fun CardPaymentDetail(
-
+    productDetails: List<Pair<Produto, Int>>
 ){
+    var totalPrice = 0.0
+    for (item in productDetails) {
+        totalPrice += item.second * (item.first.PRODUTO_PRECO - item.first.PRODUTO_DESCONTO)
+    }
     Column (modifier = Modifier
         .fillMaxWidth()
         .background(Color.White)
@@ -36,7 +39,7 @@ fun CardPaymentDetail(
                 .padding(vertical = 4.dp)
         ){
             Text(text = "Valor dos produtos")
-            Text(text = "R$139,90")
+            Text(text = "R$${String.format("%.2f", totalPrice)}")
         }
         Row (
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -55,7 +58,7 @@ fun CardPaymentDetail(
                 fontSize = 18.sp,
                 color = Color.DarkGray,
                 fontWeight = FontWeight.Bold,
-                text = "R$145,98"
+                text = "R$${String.format("%.2f", (totalPrice + 5.99))}"
             )
         }
     }

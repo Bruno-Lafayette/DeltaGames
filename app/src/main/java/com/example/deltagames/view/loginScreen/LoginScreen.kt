@@ -1,7 +1,5 @@
 package com.example.deltagames.view.loginScreen
 
-import android.app.AlertDialog
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,6 +27,7 @@ import com.example.deltagames.R
 import com.example.deltagames.model.LoginRequest
 import com.example.deltagames.model.Usuario
 import com.example.deltagames.util.ContextProvider
+import com.example.deltagames.util.component.showAlertDialog
 import com.example.deltagames.view.loginScreen.components.TextFieldCustom
 import com.example.deltagames.viewModel.LoginViewModel
 import kotlinx.coroutines.launch
@@ -50,7 +49,7 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
            email = ""
            pass = ""
        } else {
-            showAlertDialog(contextProvider.context,"Acesso negado", "Usuário ou senha inválido")
+           showAlertDialog(contextProvider.context,"Acesso negado", "Usuário ou senha inválido")
            email = ""
            pass = ""
        }
@@ -69,7 +68,6 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
         ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         TextFieldCustom(
             input = email,
             icon = Icons.Default.Email,
@@ -105,13 +103,3 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
 
 }
 
-fun showAlertDialog(context: Context, title: String, message: String) {
-    val builder = AlertDialog.Builder(context)
-    builder.setTitle(title)
-        .setMessage(message)
-    builder.setPositiveButton("OK") { dialog, _ ->
-        dialog.dismiss()
-    }
-    val alertDialog = builder.create()
-    alertDialog.show()
-}
