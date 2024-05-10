@@ -18,10 +18,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.deltagames.util.ContextProvider
-import com.example.deltagames.view.CartScreen.CartScreen
-import com.example.deltagames.view.homeScreen.HomeScreen
 import com.example.deltagames.view.ProfileScreen.ProfileScreen
 import com.example.deltagames.view.SearchScreen.SearchScreen
+import com.example.deltagames.view.cartScreen.CartScreen
+import com.example.deltagames.view.homeScreen.HomeScreen
 import com.example.deltagames.view.productDetailScreen.ProductDetail
 import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.HomeViewModel
@@ -30,11 +30,11 @@ import com.example.deltagames.viewModel.SharedProductViewModel
 
 @Composable
  fun AppNavigation(viewModel: HomeViewModel, context: ContextProvider ) {
-     val navController = rememberNavController()
+
     val sharedProductViewModel: SharedProductViewModel = viewModel()
+    val navController = rememberNavController()
     val vmCart: CartViewModel = viewModel()
     Scaffold (bottomBar = {
-
         NavigationBar {
             val navBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
             val currentDestinarion = navBackStackEntry?.destination
@@ -71,7 +71,7 @@ import com.example.deltagames.viewModel.SharedProductViewModel
                 SearchScreen()
             }
             composable(route = Screens.CartScreen.name) {
-                CartScreen()
+                CartScreen(vmCart, LoginViewModel.getInstanceUnique(), viewModel )
             }
             composable(route = Screens.ProfileScreen.name) {
                 ProfileScreen(contextProvider = context)

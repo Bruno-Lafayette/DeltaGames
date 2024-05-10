@@ -32,7 +32,6 @@ import com.example.deltagames.util.ContextProvider
 import com.example.deltagames.view.loginScreen.components.TextFieldCustom
 import com.example.deltagames.viewModel.LoginViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 @ExperimentalMaterial3Api
 @Composable
@@ -44,7 +43,7 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
     val loginResult: (Usuario?) -> Unit = { usuario ->
        if ( usuario?.userEmail != null ){
            vmLogin.user = usuario
-           vmLogin.isActive = true
+           vmLogin.isActive.value = true
            showAlertDialog(contextProvider.context,
                "Login Efetuado com Sucesso",
                "Bem vindo de volta ${vmLogin.user!!.name}")

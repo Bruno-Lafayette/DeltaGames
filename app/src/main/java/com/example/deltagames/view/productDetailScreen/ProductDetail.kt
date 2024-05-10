@@ -2,7 +2,6 @@ package com.example.deltagames.view.productDetailScreen
 
 
 import android.content.Context
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
@@ -27,6 +25,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -42,8 +41,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.deltagames.R
 import com.example.deltagames.model.CarrinhoItem
-import com.example.deltagames.util.ContextProvider
-import com.example.deltagames.util.component.CounterComponent
+import com.example.deltagames.util.component.CounterComponentHorizontal
 import com.example.deltagames.view.loginScreen.showAlertDialog
 import com.example.deltagames.view.navigation.Screens
 import com.example.deltagames.viewModel.CartViewModel
@@ -63,6 +61,7 @@ fun ProductDetail(
     val price = sharedProductViewModel.priceStringFormat().first
     val productIsActive = sharedProductViewModel.priceStringFormat().second
     var finalValue by remember { mutableStateOf(1) }
+    val isLoggedIn by vmUser.isActive.observeAsState(false)
 
     Scaffold(
         topBar = {
@@ -119,7 +118,7 @@ fun ProductDetail(
                         modifier = Modifier.padding(8.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    CounterComponent(finalValue)
+                    CounterComponentHorizontal(finalValue)
                 }
                 Text(
                     text = "Descrição do Game",
@@ -131,7 +130,7 @@ fun ProductDetail(
                 Text(text = produto.PRODUTO_DESC,
                     modifier = Modifier.padding(8.dp)
                 )
-                if (vmUser.isActive){
+                if (isLoggedIn){
                     if (productIsActive){
                         Button(
                             modifier = Modifier

@@ -1,5 +1,5 @@
 package com.example.deltagames.model
 
-data class ResponseAddProductCart(
+data class ResponseAPI(
     val message: String
 )
