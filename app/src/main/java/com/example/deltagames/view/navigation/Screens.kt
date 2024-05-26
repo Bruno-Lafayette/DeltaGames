@@ -6,4 +6,7 @@ enum class Screens {
     CartScreen,
     ProfileScreen,
     ProductDetail,
+    ListAddressScreen,
+    AddAddressScreen,
+    SettingScreen
 }

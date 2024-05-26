@@ -1,6 +1,7 @@
 package com.example.deltagames.network
 
 import com.example.deltagames.model.CarrinhoItem
+import com.example.deltagames.model.Endereco
 import com.example.deltagames.model.LoginRequest
 import com.example.deltagames.model.Produto
 import com.example.deltagames.model.ResponseAPI
@@ -23,4 +24,13 @@ interface ApiService {
     fun getAllProductsCart( @Body id: Usuario ): Call<List<CarrinhoItem>>
     @POST("cart/removeProduct")
     fun removeProduct(@Body CarrinhoItem: CarrinhoItem): Call<ResponseAPI>
+
+    @POST
+    fun addAddress(@Body Endereco: Endereco): Call<ResponseAPI>
+
+    @POST
+    fun editAddress(@Body Endereco: Endereco): Call<ResponseAPI>
+
+    @POST
+    fun listAddress()
 }
