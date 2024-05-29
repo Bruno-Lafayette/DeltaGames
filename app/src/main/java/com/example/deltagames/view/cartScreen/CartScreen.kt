@@ -94,7 +94,7 @@ fun CartScreen(
                         }
                     }
                     CardAddress()
-                    CardPaymentDetail()
+                    CardPaymentDetail(productDetails)
                     Button(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -110,10 +110,12 @@ fun CartScreen(
                     }
                 }
             } else {
-                Text(
-                    text = "Para listar os produtos faça o login",
-                    fontSize = 24.sp
-                )
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
+                ){
+                    Text(modifier = Modifier.padding(),text = "Faça o login para listar os produtos")
+                }
             }
         }
     }

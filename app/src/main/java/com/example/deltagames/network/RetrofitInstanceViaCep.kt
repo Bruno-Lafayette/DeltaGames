@@ -4,10 +4,11 @@ import com.example.deltagames.util.Constant
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitInstance {
+object RetrofitInstanceViaCep {
+
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL_DeltaGamesAPI)
+            .baseUrl(Constant.BASE_URL_ViaCep)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -12,7 +12,10 @@ class CartViewModel: ViewModel() {
     private val _carItems = MutableLiveData<List<CarrinhoItem>?>()
     val cartItems: MutableLiveData<List<CarrinhoItem>?> = _carItems
     fun addProductCart(product: CarrinhoItem, callback: (ResponseAPI?) -> Unit) {
-        repository.addProduct(product, callback)
+        repository.addProduct(product) {response ->
+            fechProductsCart()
+            callback(response)
+        }
     }
 
     fun removeProductCart(product: CarrinhoItem, callback: (ResponseAPI?) -> Unit){
@@ -41,5 +44,17 @@ class CartViewModel: ViewModel() {
                 _carItems.postValue(listaProdutos)
             }
         }
+    }
+
+    fun updateProductQuantity(productId: Int, newQuantity: Int) {
+        val currentItems = _carItems.value ?: return
+        val updatedItems = currentItems.map { item ->
+            if (item.id == productId) {
+                item.copy(qtd = newQuantity)
+            } else {
+                item
+            }
+        }
+        _carItems.value = updatedItems
     }
 }

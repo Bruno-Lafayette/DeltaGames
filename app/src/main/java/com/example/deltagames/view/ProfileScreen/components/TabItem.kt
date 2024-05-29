@@ -1,6 +1,5 @@
 package com.example.deltagames.view.ProfileScreen.components
 
-import android.content.Context
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import com.example.deltagames.util.ContextProvider
@@ -28,6 +27,6 @@ sealed class TabItem(
         title = "Criar Conta",
         subTitle = "Aproveite todos os beneficios de ser nosso cliente",
         labelButton = "Criar",
-        screens = { RegisterScreen() }
+        screens = { context -> RegisterScreen(vmLogin = LoginViewModel.getInstanceUnique(), contextProvider = context) }
     )
 }
