@@ -22,7 +22,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -94,20 +93,4 @@ fun CardProduct(
         VerticalCounterComponent(product.second, vmCart, product.first.PRODUTO_ID)
     }
     }
-}
-
-@Preview
-@Composable
-fun CardPreview(){
-    val exemploProduto = Pair(Produto(
-        10,
-        "Call Of Duty",
-        "",
-        300.9,
-        50.0,
-        3,
-        1,
-        "https://blz-contentstack-images.akamaized.net/v3/assets/bltf408a0557f4e4998/bltd31831eda9199937/62abc0df5cbe472513c0ce59/Cortez_Base_Game-Bnet_Game-Card_Feature-960x540.jpg"
-    ),2)
-    CardProduct(LoginViewModel(), product = exemploProduto, CartViewModel())
 }

@@ -12,6 +12,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.deltagames.util.component.ButtonListAddress
 import com.example.deltagames.view.navigation.Screens
+import com.example.deltagames.viewModel.AddressViewModel
 import com.example.deltagames.viewModel.LoginViewModel
 
 @Composable
@@ -27,6 +30,7 @@ fun SettingScreen(
     userViewModel: LoginViewModel,
     navController: NavController
 ){
+    val addresses by AddressViewModel.getInstanceUnique().listAddress.observeAsState(emptyList())
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,7 +46,6 @@ fun SettingScreen(
                 actions = {
                     IconButton(onClick = {
                         userViewModel.isActive.postValue(false)
-                        userViewModel.user = null
                         navController.navigate(Screens.ProfileScreen.name)
                     }) {
                         Icon(
@@ -64,7 +67,9 @@ fun SettingScreen(
             Text(text = "Usuario: ${userViewModel.user!!.name}")
             Text(text = "Email: ${userViewModel.user!!.userEmail}")
             Text(text = "CPF: ${userViewModel.user!!.cpf}")
-            ButtonListAddress(navigationController = navController)
+            ButtonListAddress(navigationController = navController,
+                addresses.getOrNull(0)
+            )
         }
     }
 }

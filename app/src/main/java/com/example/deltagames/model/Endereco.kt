@@ -13,7 +13,19 @@ data class Endereco(
     val logradouro: String,
     val numero: Int,
     val complemento: String,
-    val cep: Int,
-    val cidade: String,
-    val estado: String
-): Parcelable
+    val cep: String,
+    val localidade: String,
+    val uf: String
+): Parcelable {
+    constructor(usuario_id: Int) : this(
+        endereco_id = 0,
+        usuario_id = usuario_id,
+        nome = "",
+        logradouro = "",
+        numero = 0,
+        complemento = "",
+        cep = "",
+        localidade = "",
+        uf = ""
+    )
+}

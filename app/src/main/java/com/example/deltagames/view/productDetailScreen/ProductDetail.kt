@@ -145,8 +145,6 @@ fun ProductDetail(
                             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
                             onClick = {
                                 vmCart.addProductCart(CarrinhoItem(vmUser.user!!.id, produto.PRODUTO_ID, finalValue)) { response ->
-                                    println("###############VALOR FINAL##################")
-                                    println(finalValue)
                                     response?.let {
                                         showAlertDialog(context, "Sucesso",
                                             it.message

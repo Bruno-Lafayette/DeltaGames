@@ -22,10 +22,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.deltagames.model.Endereco
 import com.example.deltagames.view.navigation.Screens
 
 @Composable
-fun ButtonListAddress(navigationController: NavController){
+fun ButtonListAddress(navigationController: NavController, endereco: Endereco?){
     Column (
         modifier = Modifier
             .background(Color.White)
@@ -49,11 +50,15 @@ fun ButtonListAddress(navigationController: NavController){
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Column (modifier = Modifier.fillMaxHeight()) {
-                Text(text = "${"Casa"}")
-                Text(
-                    text = "${"Rua joao fernandes camisa nova junior"}, ${174} ",
-                    maxLines = 2
-                )
+                if (endereco == null){
+                    Text(text = "Nenhum endereço cadastrado")
+                } else {
+                    Text(text = "${endereco.nome}")
+                    Text(
+                        text = "${endereco.logradouro}, ${174} ",
+                        maxLines = 2
+                    )
+                }
             }
             Image(
                 imageVector = Icons.Sharp.KeyboardArrowRight,

@@ -94,7 +94,7 @@ import com.example.deltagames.viewModel.SharedProductViewModel
                 SettingScreen(userViewModel = userViewModel, navController = navController)
             }
             composable(route = Screens.AddAddressScreen.name){
-                AddAddressScreen(navController = navController)
+                AddAddressScreen(navController = navController, context = context)
             }
         }
 

@@ -10,6 +10,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("products/")
@@ -24,13 +25,12 @@ interface ApiService {
     fun getAllProductsCart( @Body id: Usuario ): Call<List<CarrinhoItem>>
     @POST("cart/removeProduct")
     fun removeProduct(@Body CarrinhoItem: CarrinhoItem): Call<ResponseAPI>
-
-    @POST
+    @POST("address/add")
     fun addAddress(@Body Endereco: Endereco): Call<ResponseAPI>
-
     @POST
     fun editAddress(@Body Endereco: Endereco): Call<ResponseAPI>
-
-    @POST
-    fun listAddress()
+    @POST("address/list")
+    fun listAddress(@Body usuario_id: Endereco): Call<List<Endereco>>
+    @GET("ws/{cep}/json/")
+    fun getCepInfo(@Path("cep") cep: String): Call<Endereco>
 }
