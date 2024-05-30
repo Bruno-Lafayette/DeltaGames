@@ -43,7 +43,7 @@ fun CardProduct(product: Produto, navController: NavController, sharedProductVie
                         }
                     },
                 contentScale = ContentScale.FillBounds,
-                model = product.IMAGEM_URL,
+                model = product.IMAGENS_URL.first(),
                 contentDescription = ""
             )
         }

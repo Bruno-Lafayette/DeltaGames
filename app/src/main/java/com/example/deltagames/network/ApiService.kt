@@ -3,6 +3,7 @@ package com.example.deltagames.network
 import com.example.deltagames.model.CarrinhoItem
 import com.example.deltagames.model.Endereco
 import com.example.deltagames.model.LoginRequest
+import com.example.deltagames.model.Pedido
 import com.example.deltagames.model.Produto
 import com.example.deltagames.model.ResponseAPI
 import com.example.deltagames.model.Usuario
@@ -33,4 +34,7 @@ interface ApiService {
     fun listAddress(@Body usuario_id: Endereco): Call<List<Endereco>>
     @GET("ws/{cep}/json/")
     fun getCepInfo(@Path("cep") cep: String): Call<Endereco>
+
+    @POST("order/create")
+    fun createOrder(@Body order: Pedido): Call<ResponseAPI>
 }

@@ -26,7 +26,7 @@ import com.example.deltagames.R
 
 
 @Composable
-fun HorizontalCounterComponent(finalValue: Int, onValueChange: (Int)-> Unit) {
+fun HorizontalCounterComponent(finalValue: Int, valueMax: Int, onValueChange: (Int)-> Unit) {
     var counter by remember { mutableStateOf(finalValue) }
     Card(
         modifier = Modifier.padding(horizontal = 8.dp),
@@ -62,8 +62,10 @@ fun HorizontalCounterComponent(finalValue: Int, onValueChange: (Int)-> Unit) {
             Spacer(modifier = Modifier.width(8.dp))
             Button(
                 onClick = {
-                    counter++
-                    onValueChange(counter)
+                    if (counter < valueMax){
+                        counter++
+                        onValueChange(counter)
+                    }
                           },
                 shape = RoundedCornerShape(25.dp),
                 modifier = Modifier

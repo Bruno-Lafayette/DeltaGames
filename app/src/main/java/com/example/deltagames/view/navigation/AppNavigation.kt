@@ -1,5 +1,7 @@
 package com.example.deltagames.view.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -32,6 +34,7 @@ import com.example.deltagames.viewModel.HomeViewModel
 import com.example.deltagames.viewModel.LoginViewModel
 import com.example.deltagames.viewModel.SharedProductViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
  fun AppNavigation(viewModel: HomeViewModel, context: ContextProvider ) {
 
@@ -79,7 +82,7 @@ import com.example.deltagames.viewModel.SharedProductViewModel
                 SearchScreen()
             }
             composable(route = Screens.CartScreen.name) {
-                CartScreen(vmCart, LoginViewModel.getInstanceUnique(), viewModel )
+                CartScreen(vmCart, LoginViewModel.getInstanceUnique(), viewModel, context )
             }
             composable(route = Screens.ProfileScreen.name) {
                 ProfileScreen(contextProvider = context, navController = navController, userViewModel)

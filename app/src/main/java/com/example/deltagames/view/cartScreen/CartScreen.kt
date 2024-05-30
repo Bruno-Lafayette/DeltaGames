@@ -1,5 +1,7 @@
 package com.example.deltagames.view.cartScreen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,21 +33,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.deltagames.R
+import com.example.deltagames.model.Endereco
+import com.example.deltagames.model.Pedido
 import com.example.deltagames.model.Produto
+import com.example.deltagames.util.ContextProvider
+import com.example.deltagames.util.component.showAlertDialog
 import com.example.deltagames.view.cartScreen.components.CardAddress
 import com.example.deltagames.view.cartScreen.components.CardPaymentDetail
 import com.example.deltagames.view.cartScreen.components.CardProduct
+import com.example.deltagames.viewModel.AddressViewModel
 import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.HomeViewModel
 import com.example.deltagames.viewModel.LoginViewModel
+import com.example.deltagames.viewModel.OrderViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CartScreen(
     vmCart: CartViewModel,
     vmUser: LoginViewModel,
-    vmHome: HomeViewModel
+    vmHome: HomeViewModel,
+    contextProvider: ContextProvider
 ) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedAddress by remember { mutableStateOf(Endereco(0,0,"","",0,"", "","", "" )) }
+    val orderVM = OrderViewModel.getInstanceUnique()
     val isLoggedIn by vmUser.isActive.observeAsState(false)
     val cartItems by vmCart.cartItems.observeAsState(emptyList())
     val products by vmHome.products.observeAsState(emptyList())
@@ -53,6 +68,10 @@ fun CartScreen(
     LaunchedEffect(key1 = cartItems, key2 = products) {
         productDetails = vmCart.listProducts(products, cartItems)
     }
+
+    val currentDate = LocalDate.now()
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val formattedDate = currentDate.format(formatter)
 
     Scaffold(
         topBar = {
@@ -93,7 +112,13 @@ fun CartScreen(
                             }
                         }
                     }
-                    CardAddress()
+                    CardAddress(
+                        selectedAddress.nome,
+                        AddressViewModel.getInstanceUnique().listAddress.value!!,
+                        "Selecione um Endereço",
+                        ){
+                        selectedAddress = it
+                    }
                     CardPaymentDetail(productDetails)
                     Button(
                         modifier = Modifier
@@ -102,7 +127,15 @@ fun CartScreen(
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
                         onClick = {
-
+                            orderVM.create(item = Pedido(
+                                vmUser.user!!.id,
+                                selectedAddress.endereco_id,
+                                1,
+                                formattedDate.toString(),
+                                vmCart.listItens(products, cartItems)
+                            )){
+                                showAlertDialog(contextProvider.context, "", it!!.message)
+                            }
                         }
                     ) {
                         Text(text = "Pagamento")
@@ -119,6 +152,4 @@ fun CartScreen(
             }
         }
     }
-
-
 }

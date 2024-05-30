@@ -28,7 +28,7 @@ import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.LoginViewModel
 
 @Composable
-fun VerticalCounterComponent(initialValue: Int, vmCart: CartViewModel, idProduct: Int) {
+fun VerticalCounterComponent(initialValue: Int, valueMax: Int, vmCart: CartViewModel, idProduct: Int) {
     var counter by remember { mutableStateOf(initialValue) }
     val idUser = LoginViewModel.getInstanceUnique().user!!.id
     Card(
@@ -39,7 +39,8 @@ fun VerticalCounterComponent(initialValue: Int, vmCart: CartViewModel, idProduct
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { if (counter > 1) {counter--
+                onClick = { if (counter > 1) {
+                    counter--
                     vmCart.addProductCart(CarrinhoItem(idUser, idProduct, counter )){
                     }
                 }},
@@ -64,7 +65,10 @@ fun VerticalCounterComponent(initialValue: Int, vmCart: CartViewModel, idProduct
             )
             Spacer(modifier = Modifier.width(8.dp))
             Button(
-                onClick = { counter++
+                onClick = {
+                    if (counter < valueMax){
+                        counter++
+                    }
                     vmCart.addProductCart(CarrinhoItem(idUser, idProduct, counter )){
                     }
                           },
