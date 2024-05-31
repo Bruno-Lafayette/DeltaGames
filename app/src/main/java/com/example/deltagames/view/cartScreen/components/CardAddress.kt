@@ -1,61 +1,62 @@
 package com.example.deltagames.view.cartScreen.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.twotone.KeyboardArrowRight
-import androidx.compose.material3.Icon
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.deltagames.model.Endereco
 
-@Preview
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardAddress(){
-    Column (
+fun CardAddress(
+    selectedValue: String,
+    options: List<Endereco>,
+    label: String,
+    onValueChangedEvent: (Endereco) -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
 
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .padding(horizontal = 8.dp, vertical = 8.dp)){
-        Text(
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            text = "Endereço de Entrega",
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+    ) {
+        OutlinedTextField(
+            readOnly = true,
+            value = selectedValue,
+            onValueChange = {},
+            label = { Text(text = label) },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+            },
+            colors = OutlinedTextFieldDefaults.colors(),
             modifier = Modifier
+                .menuAnchor()
                 .fillMaxWidth()
-                .padding(vertical = 4.dp)
-        ){
-            Row (verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    modifier = Modifier.padding(end = 8.dp),
-                    imageVector = Icons.Outlined.LocationOn,
-                    contentDescription = "Localização"
+                .padding(8.dp)
+        )
+        ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            options.forEach { option: Endereco ->
+                DropdownMenuItem(
+                    text = { Text(text = option.nome) },
+                    onClick = {
+                        expanded = false
+                        onValueChangedEvent(option)
+                    }
                 )
-                Column {
-                    Text(text = "Jalan Kloposepuluh Kec Sukodono,")
-                    Text(text = "Kab Sidoarjo Jawa Timur")
-                }
             }
-            Icon(
-                imageVector = Icons.TwoTone.KeyboardArrowRight,
-                contentDescription = "Seta indicando para direita"
-            )
         }
     }
 }

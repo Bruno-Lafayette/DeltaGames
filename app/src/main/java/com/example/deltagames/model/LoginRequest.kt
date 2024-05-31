@@ -6,6 +6,6 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class LoginRequest (
-    val email: String,
-    val password: String
+    val email:      String,
+    val password:   String
 ): Parcelable

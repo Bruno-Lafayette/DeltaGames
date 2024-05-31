@@ -6,8 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,8 +53,12 @@ import com.example.deltagames.view.navigation.Screens
 import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.LoginViewModel
 import com.example.deltagames.viewModel.SharedProductViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import kotlin.math.absoluteValue
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
 @Composable
 fun ProductDetail(
     navController: NavController,
@@ -96,15 +104,34 @@ fun ProductDetail(
             Column (modifier = Modifier
                 .padding(top = contentPadding.calculateTopPadding())
                 .background(Color.White)){
-                AsyncImage(
-                    model = produto.IMAGEM_URL,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(280.dp),
-                    contentScale = ContentScale.FillWidth,
-                    alignment = Alignment.CenterStart
-                )
+
+                HorizontalPager(
+                    count = produto.IMAGENS_URL.size,
+                    contentPadding = PaddingValues(horizontal = 32.dp),) {page ->
+                    Card (
+                        Modifier
+                            .graphicsLayer {
+                                val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                                val scale = 0.85f + (1f - pageOffset.coerceIn(0f, 1f)) * (1f - 0.85f)
+                                val alpha = 0.5f + (1f - pageOffset.coerceIn(0f, 1f)) * (1f - 0.5f)
+                                scaleX = scale
+                                scaleY = scale
+                                this.alpha = alpha
+                            }
+                            .fillMaxWidth()
+                            .aspectRatio(1f)
+                    ) {
+                        AsyncImage(
+                            model = produto.IMAGENS_URL[page],
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(280.dp),
+                            contentScale = ContentScale.Fit,
+                            alignment = Alignment.CenterStart
+                        )
+                    }
+                }
                 Text(
                     text = produto.PRODUTO_NOME,
                     fontSize = 24.sp,
@@ -120,7 +147,7 @@ fun ProductDetail(
                         modifier = Modifier.padding(8.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    HorizontalCounterComponent(finalValue){newValue ->
+                    HorizontalCounterComponent(finalValue, produto.PRODUTO_QTD){newValue ->
                         finalValue = newValue
 
                     }
@@ -171,3 +198,4 @@ fun ProductDetail(
         }
     }
 }
+

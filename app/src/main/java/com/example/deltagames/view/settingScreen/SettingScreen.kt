@@ -12,14 +12,19 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.deltagames.model.Endereco
 import com.example.deltagames.util.component.ButtonListAddress
 import com.example.deltagames.view.navigation.Screens
 import com.example.deltagames.viewModel.AddressViewModel
@@ -30,7 +35,14 @@ fun SettingScreen(
     userViewModel: LoginViewModel,
     navController: NavController
 ){
+
+
     val addresses by AddressViewModel.getInstanceUnique().listAddress.observeAsState(emptyList())
+    var addressUpDate by remember { mutableStateOf<List<Endereco>>(emptyList()) }
+
+    LaunchedEffect(key1 = addresses) {
+        addressUpDate = addresses
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -68,7 +80,7 @@ fun SettingScreen(
             Text(text = "Email: ${userViewModel.user!!.userEmail}")
             Text(text = "CPF: ${userViewModel.user!!.cpf}")
             ButtonListAddress(navigationController = navController,
-                addresses.getOrNull(0)
+                addressUpDate.getOrNull(0)
             )
         }
     }

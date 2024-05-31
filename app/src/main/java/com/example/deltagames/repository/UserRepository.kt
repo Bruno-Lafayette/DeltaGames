@@ -12,7 +12,6 @@ import retrofit2.Response
 
 class UserRepository {
     private val apiService: ApiService = RetrofitInstance.apiService
-
     fun login(loginRequest: LoginRequest, callback: (Usuario?) -> Unit) {
         try {
             apiService.login(loginRequest).enqueue(object: Callback<Usuario?> {

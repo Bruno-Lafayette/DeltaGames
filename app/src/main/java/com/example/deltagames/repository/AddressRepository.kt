@@ -14,7 +14,6 @@ class AddressRepository {
     private val apiService = RetrofitInstance.apiService
     private val apiServiceViaCep = RetrofitInstanceViaCep.apiService
 
-
     fun listAddress(userID: Int, callback: (List<Endereco>?) -> Unit){
         apiService.listAddress(Endereco(usuario_id = userID)).enqueue(object: Callback<List<Endereco>?>{
             override fun onResponse(

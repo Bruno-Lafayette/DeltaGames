@@ -7,15 +7,15 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 @Parcelize
 data class Endereco(
-    val endereco_id: Int,
-    val usuario_id: Int,
-    val nome: String,
-    val logradouro: String,
-    val numero: Int,
-    val complemento: String,
-    val cep: String,
-    val localidade: String,
-    val uf: String
+    val endereco_id:    Int,
+    val usuario_id:     Int,
+    val nome:           String,
+    val logradouro:     String,
+    val numero:         Int,
+    val complemento:    String,
+    val cep:            String,
+    val localidade:     String,
+    val uf:             String
 ): Parcelable {
     constructor(usuario_id: Int) : this(
         endereco_id = 0,

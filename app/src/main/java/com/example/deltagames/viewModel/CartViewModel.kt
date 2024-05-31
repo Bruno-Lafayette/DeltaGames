@@ -3,6 +3,7 @@ package com.example.deltagames.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.deltagames.model.CarrinhoItem
+import com.example.deltagames.model.Item
 import com.example.deltagames.model.Produto
 import com.example.deltagames.model.ResponseAPI
 import com.example.deltagames.repository.CartRepository
@@ -17,15 +18,25 @@ class CartViewModel: ViewModel() {
             callback(response)
         }
     }
-
     fun removeProductCart(product: CarrinhoItem, callback: (ResponseAPI?) -> Unit){
         repository.removeProduct(product) { response ->
             fechProductsCart()
             callback(response)
         }
     }
-
-    fun listProducts(products: List<Produto>?, cartItems: List<CarrinhoItem>?): List<Pair<Produto, Int>> {
+    fun listItens(products: List<Produto>?, cartItems: List<CarrinhoItem>?): List<Item> {
+        val listItens = mutableListOf<Item>()
+        if (!cartItems.isNullOrEmpty() && products != null) {
+            for (item in cartItems) {
+                val result = products.find { it.PRODUTO_ID == item.id }
+                if (result != null) {
+                    listItens.add(Item(result.PRODUTO_ID, item.qtd, (result.PRODUTO_PRECO - result.PRODUTO_DESCONTO)))
+                }
+            }
+        }
+        return listItens
+    }
+    fun listProducts (products: List<Produto>?, cartItems: List<CarrinhoItem>?): List<Pair<Produto, Int>> {
         val productDetails = mutableListOf<Pair<Produto, Int>>()
         if (!cartItems.isNullOrEmpty() && products != null) {
             for (item in cartItems) {
@@ -37,7 +48,6 @@ class CartViewModel: ViewModel() {
         }
         return productDetails
     }
-
     fun fechProductsCart() {
         repository.getAllProducts(LoginViewModel.getInstanceUnique().user!!) { listaProdutos ->
             if (listaProdutos != null) {
@@ -45,7 +55,6 @@ class CartViewModel: ViewModel() {
             }
         }
     }
-
     fun updateProductQuantity(productId: Int, newQuantity: Int) {
         val currentItems = _carItems.value ?: return
         val updatedItems = currentItems.map { item ->

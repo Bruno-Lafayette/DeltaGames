@@ -58,7 +58,7 @@ fun CardProduct(
         modifier = Modifier
     ) {
         AsyncImage(
-            model = product.first.IMAGEM_URL,
+            model = product.first.IMAGENS_URL.first(),
             contentDescription = "",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
@@ -90,7 +90,7 @@ fun CardProduct(
 
             }
         }
-        VerticalCounterComponent(product.second, vmCart, product.first.PRODUTO_ID)
+        VerticalCounterComponent(product.second, product.first.PRODUTO_QTD, vmCart,product.first.PRODUTO_ID)
     }
     }
 }
