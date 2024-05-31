@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.deltagames.R
 import com.example.deltagames.model.LoginRequest
@@ -71,14 +72,16 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
         TextFieldCustom(
             input = email,
             icon = Icons.Default.Email,
-            placeHolder = "E-mail"
+            placeHolder = "E-mail",
+            keyboard = KeyboardType.Text
         ) {newValue->
             email = newValue
         }
         TextFieldCustom(
             input = pass,
             icon = Icons.Default.Lock,
-            placeHolder = "Senha"
+            placeHolder = "Senha",
+            keyboard = KeyboardType.Password
         ) {newValue->
             pass = newValue
         }

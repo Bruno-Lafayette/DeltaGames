@@ -4,7 +4,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -19,16 +24,40 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.deltagames.R
 
 
 @Composable
-fun TextFieldCustom(input: String, placeHolder: String, icon: ImageVector, onInputChanged: (String) -> Unit){
+fun TextFieldCustom(input: String, placeHolder: String, keyboard: KeyboardType = KeyboardType.Text, icon: ImageVector, onInputChanged: (String) -> Unit){
     var isFieldEmpty by remember { mutableStateOf(true) }
     var hasUserInteracted by remember { mutableStateOf(false) }
+    var isPasswordVisible by remember { mutableStateOf(false) }
 
     TextField(
+        trailingIcon = {
+            if (keyboard == KeyboardType.Password) {
+                IconButton(
+                    onClick = {
+                        isPasswordVisible = !isPasswordVisible
+                    }
+                ) {
+                    Icon(
+                        imageVector = if (isPasswordVisible) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
+                        contentDescription = if (isPasswordVisible) "Esconder senha" else "Mostrar senha"
+                    )
+                }
+            }
+        },
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.Characters,
+            autoCorrect = true,
+            keyboardType = keyboard
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
@@ -60,7 +89,12 @@ fun TextFieldCustom(input: String, placeHolder: String, icon: ImageVector, onInp
             focusedIndicatorColor = Color.Transparent
         ),
         singleLine = true,
-        enabled = true
+        enabled = true,
+        visualTransformation = if (keyboard == KeyboardType.Password && !isPasswordVisible) {
+            PasswordVisualTransformation()
+        } else {
+            VisualTransformation.None
+        }
     )
     if (isFieldEmpty && hasUserInteracted) {
         Text(
