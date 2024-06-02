@@ -55,15 +55,4 @@ class CartViewModel: ViewModel() {
             }
         }
     }
-    fun updateProductQuantity(productId: Int, newQuantity: Int) {
-        val currentItems = _carItems.value ?: return
-        val updatedItems = currentItems.map { item ->
-            if (item.id == productId) {
-                item.copy(qtd = newQuantity)
-            } else {
-                item
-            }
-        }
-        _carItems.value = updatedItems
-    }
 }

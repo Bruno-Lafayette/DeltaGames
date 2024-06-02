@@ -1,10 +1,8 @@
 package com.example.deltagames.view.navigation
 
-import android.graphics.drawable.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -20,11 +18,11 @@ val listOfNavItems = listOf(
         icon = Icons.Default.Home,
         route = Screens.HomeScreen.name
     ),
-    NavItem(
-        label = "Pesquisa",
-        icon = Icons.Default.Search,
-        route = Screens.SearchScreen.name
-    ),
+//    NavItem(
+//        label = "Pesquisa",
+//        icon = Icons.Default.Search,
+//        route = Screens.SearchScreen.name
+//    ),
     NavItem(
         label = "Carrinho",
         icon = Icons.Default.ShoppingCart,

@@ -185,11 +185,8 @@ fun AddAddressScreen(
                                         it.localidade,
                                         it.uf
                                     )){response ->
-                                        if (response?.message!!.isEmpty()){
-
-                                        } else {
-                                            showAlertDialog(context.context, "Sucesso", response?.message)
-                                        }
+                                        showAlertDialog(context.context, "Sucesso", response!!.message)
+                                        navController.popBackStack()
                                     }
                                 }
                             ) {

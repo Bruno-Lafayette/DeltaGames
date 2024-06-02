@@ -52,6 +52,24 @@ class AddressRepository {
         })
     }
 
+    fun removeAddress(endereco: Endereco, callback: (ResponseAPI?) -> Unit){
+        apiService.removeAddress(endereco).enqueue(object: Callback<ResponseAPI?>{
+            override fun onResponse(
+                call: Call<ResponseAPI?>,
+                response: Response<ResponseAPI?>
+            ) {
+                if (response.isSuccessful){
+                    callback(response.body())
+                } else {
+                    callback(null)
+                }
+            }
+            override fun onFailure(call: Call<ResponseAPI?>, t: Throwable) {
+                Log.e("UserRepository", "Falha na chamada Retrofit: ${t.message}", t)
+                callback(null)
+            }
+        })
+    }
     
 
     fun getCepInfo(cep: String, callback: (Endereco?) -> Unit) {

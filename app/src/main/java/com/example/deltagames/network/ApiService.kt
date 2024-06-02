@@ -30,6 +30,8 @@ interface ApiService {
     fun addAddress(@Body Endereco: Endereco): Call<ResponseAPI>
     @POST
     fun editAddress(@Body Endereco: Endereco): Call<ResponseAPI>
+    @POST("address/remove")
+    fun removeAddress(@Body Endereco: Endereco): Call<ResponseAPI>
     @POST("address/list")
     fun listAddress(@Body usuario_id: Endereco): Call<List<Endereco>>
     @GET("ws/{cep}/json/")

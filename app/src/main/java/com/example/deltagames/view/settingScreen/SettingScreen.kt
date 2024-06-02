@@ -20,13 +20,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.deltagames.model.Endereco
 import com.example.deltagames.util.component.ButtonListAddress
-import com.example.deltagames.view.navigation.Screens
 import com.example.deltagames.viewModel.AddressViewModel
 import com.example.deltagames.viewModel.LoginViewModel
 
@@ -41,7 +41,7 @@ fun SettingScreen(
     var addressUpDate by remember { mutableStateOf<List<Endereco>>(emptyList()) }
 
     LaunchedEffect(key1 = addresses) {
-        addressUpDate = addresses
+        addressUpDate = addresses!!
     }
     Scaffold(
         topBar = {
@@ -58,7 +58,7 @@ fun SettingScreen(
                 actions = {
                     IconButton(onClick = {
                         userViewModel.isActive.postValue(false)
-                        navController.navigate(Screens.ProfileScreen.name)
+                        navController.popBackStack(navController.graph.startDestinationId, false)
                     }) {
                         Icon(
                             imageVector = Icons.Rounded.ExitToApp,
@@ -79,6 +79,13 @@ fun SettingScreen(
             Text(text = "Usuario: ${userViewModel.user!!.name}")
             Text(text = "Email: ${userViewModel.user!!.userEmail}")
             Text(text = "CPF: ${userViewModel.user!!.cpf}")
+            Text(
+                modifier = Modifier.padding(top = 16.dp),
+                text = "Endereço",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.SansSerif
+                )
             ButtonListAddress(navigationController = navController,
                 addressUpDate.getOrNull(0)
             )

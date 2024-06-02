@@ -1,4 +1,4 @@
-package com.example.deltagames.view.SearchScreen
+package com.example.deltagames.view.searchScreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

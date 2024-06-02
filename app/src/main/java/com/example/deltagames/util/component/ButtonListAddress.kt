@@ -12,7 +12,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.sharp.KeyboardArrowRight
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,45 +31,54 @@ import com.example.deltagames.view.navigation.Screens
 
 @Composable
 fun ButtonListAddress(navigationController: NavController, endereco: Endereco?){
-    Column (
+
+    Card(
         modifier = Modifier
-            .background(Color.White)
-            .fillMaxWidth()
-            .height(100.dp)
             .padding(8.dp)
             .clickable {
                 navigationController.navigate(Screens.ListAddressScreen.name)
-            }
+            },
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
-        Text(
-            text = "Endereço",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.ExtraBold
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        Column (
             modifier = Modifier
+                .background(Color.White)
                 .fillMaxWidth()
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Column (modifier = Modifier.fillMaxHeight()) {
-                if (endereco == null){
-                    Text(text = "Nenhum endereço cadastrado")
-                } else {
-                    Text(text = "${endereco.nome}")
-                    Text(
-                        text = "${endereco.logradouro}, ${174} ",
-                        maxLines = 2
-                    )
-                }
-            }
-            Image(
-                imageVector = Icons.Sharp.KeyboardArrowRight,
-                contentDescription = "Seta indicando lado direito",
+                .height(60.dp)
+                .padding(8.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .width(20.dp)
-            )
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ){
+                Column (modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+                    if (endereco == null){
+                        Text(text = "Nenhum endereço encontrado")
+                        Text(text = "Clique aqui para cadastrar")
+                    } else {
+                        Row {
+                            Icon(imageVector = Icons.Filled.LocationOn, contentDescription = "icone de localização")
+                            Text(text = "${endereco.nome}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Text(
+                            text = "${endereco.logradouro}, ${endereco.numero} ",
+                            maxLines = 2
+                        )
+                    }
+                }
+                Image(
+                    imageVector = Icons.Sharp.KeyboardArrowRight,
+                    contentDescription = "Seta indicando lado direito",
+                    modifier = Modifier
+                        .width(20.dp)
+                        .fillMaxHeight()
+                )
+            }
         }
     }
+
+
+
 }

@@ -21,8 +21,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.deltagames.util.ContextProvider
-import com.example.deltagames.view.ProfileScreen.ProfileScreen
-import com.example.deltagames.view.SearchScreen.SearchScreen
+import com.example.deltagames.view.paymentScreen.PaymentScreen
+import com.example.deltagames.view.profileScreen.ProfileScreen
+import com.example.deltagames.view.searchScreen.SearchScreen
 import com.example.deltagames.view.addressScreen.AddAddressScreen
 import com.example.deltagames.view.addressScreen.ListAddressScreen
 import com.example.deltagames.view.cartScreen.CartScreen
@@ -39,6 +40,7 @@ import com.example.deltagames.viewModel.SharedProductViewModel
  fun AppNavigation(viewModel: HomeViewModel, context: ContextProvider ) {
 
     val sharedProductViewModel: SharedProductViewModel = viewModel()
+    val vmLogin = LoginViewModel.getInstanceUnique()
     val navController = rememberNavController()
     val vmCart: CartViewModel = viewModel()
     val userViewModel = remember {
@@ -82,13 +84,13 @@ import com.example.deltagames.viewModel.SharedProductViewModel
                 SearchScreen()
             }
             composable(route = Screens.CartScreen.name) {
-                CartScreen(vmCart, LoginViewModel.getInstanceUnique(), viewModel, context )
+                CartScreen(navController, vmCart, vmLogin, viewModel, context)
             }
             composable(route = Screens.ProfileScreen.name) {
                 ProfileScreen(contextProvider = context, navController = navController, userViewModel)
             }
             composable(route = Screens.ProductDetail.name){backStackEntry ->
-               ProductDetail(navController = navController, sharedProductViewModel, context.context , vmCart, LoginViewModel.getInstanceUnique() )
+               ProductDetail(navController = navController, sharedProductViewModel, context.context , vmCart, vmLogin )
             }
             composable(route = Screens.ListAddressScreen.name){
                 ListAddressScreen(navController = navController)
@@ -98,6 +100,9 @@ import com.example.deltagames.viewModel.SharedProductViewModel
             }
             composable(route = Screens.AddAddressScreen.name){
                 AddAddressScreen(navController = navController, context = context)
+            }
+            composable(route = Screens.PaymentScreen.name){
+                PaymentScreen(navController, vmLogin, context, vmCart)
             }
         }
 
