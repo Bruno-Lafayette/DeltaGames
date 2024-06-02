@@ -90,7 +90,7 @@ fun LoginScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(8.dp),
-        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
         onClick = {
             try {
                 startLogin()

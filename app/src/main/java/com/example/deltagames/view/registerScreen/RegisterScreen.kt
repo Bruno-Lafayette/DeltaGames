@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.deltagames.R
 import com.example.deltagames.model.Usuario
@@ -65,7 +66,8 @@ fun RegisterScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
         TextFieldCustom(
             input = pass,
             icon = Icons.Default.Lock,
-            placeHolder = "Senha"
+            placeHolder = "Senha",
+            keyboard = KeyboardType.Password
         ) { newValue ->
             pass = newValue
         }
@@ -81,7 +83,7 @@ fun RegisterScreen(vmLogin: LoginViewModel, contextProvider: ContextProvider){
                 .fillMaxWidth()
                 .padding(16.dp),
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
             onClick = {
                 vmLogin.register(Usuario(0, name, email, cpf, pass)) {
                     it?.let { it1 ->

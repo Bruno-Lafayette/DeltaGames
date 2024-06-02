@@ -15,7 +15,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import com.example.deltagames.R
 import com.example.deltagames.model.Endereco
 
 
@@ -41,7 +44,20 @@ fun CardAddress(
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
-            colors = OutlinedTextFieldDefaults.colors(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = colorResource(id = R.color.orange_delta_games),
+                focusedLabelColor = colorResource(id = R.color.orange_delta_games),
+                focusedContainerColor = Color.Transparent,
+                focusedPlaceholderColor = colorResource(id = R.color.orange_delta_games),
+                focusedTrailingIconColor = colorResource(id = R.color.orange_delta_games),
+
+                unfocusedContainerColor = colorResource(id = R.color.dark_blue_delta_games),
+                unfocusedBorderColor = colorResource(id = R.color.dark_blue_delta_games),
+                unfocusedPlaceholderColor = Color.White,
+                unfocusedLabelColor = Color.White,
+                unfocusedTrailingIconColor = Color.White,
+                unfocusedTextColor = Color.White
+            ),
             modifier = Modifier
                 .menuAnchor()
                 .fillMaxWidth()

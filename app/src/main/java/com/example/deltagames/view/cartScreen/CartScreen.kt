@@ -2,6 +2,7 @@ package com.example.deltagames.view.cartScreen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,9 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.deltagames.R
 import com.example.deltagames.model.Endereco
 import com.example.deltagames.model.Pedido
@@ -74,6 +77,7 @@ fun CartScreen(
     val formattedDate = currentDate.format(formatter)
 
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             TopAppBar(
                 backgroundColor = Color.Transparent,
@@ -90,7 +94,8 @@ fun CartScreen(
     ){contentPadding ->
         Box(
             modifier = Modifier
-                .padding(top = contentPadding.calculateTopPadding()),
+                .padding(top = contentPadding.calculateTopPadding())
+                .background(Color.White),
         ) {
             if (isLoggedIn){
                 vmCart.fechProductsCart()
@@ -102,7 +107,19 @@ fun CartScreen(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier.fillMaxSize()
                         ){
-                            Text(modifier = Modifier.padding(),text = "Nenhum produto ainda foi adicionado")
+                            Column (
+
+                            ) {
+                                Text(
+                                    modifier = Modifier.padding(),
+                                    text = "Nenhum produto adicionado",
+                                    fontSize = 24.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    textAlign = TextAlign.Center
+                                )
+
+                                AsyncImage(model = "https://freepngimg.com/save/126439-adventure-bmo-time-free-clipart-hq/961x869", contentDescription = "Personagem BMO Meditando")
+                            }
                         }
                     } else {
                     Row (modifier = Modifier.height(300.dp)) {
@@ -126,7 +143,7 @@ fun CartScreen(
                                     .fillMaxWidth()
                                     .padding(16.dp),
                                 shape = RoundedCornerShape(8.dp),
-                                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+                                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
                                 onClick = {
 
                                     cart.orderUser = Pedido(
