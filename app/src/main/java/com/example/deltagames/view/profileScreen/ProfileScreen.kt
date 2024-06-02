@@ -7,8 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavHostController
+import com.example.deltagames.R
 import com.example.deltagames.util.ContextProvider
 import com.example.deltagames.view.navigation.Screens
 import com.example.deltagames.view.profileScreen.components.TabContent
@@ -30,7 +31,7 @@ fun ProfileScreen(contextProvider: ContextProvider, navController: NavHostContro
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.Black)
+                .background(color = colorResource(id = R.color.dark_blue_delta_games))
         ) {
             Tabs(tabs = list, pagerState = pagerState)
             TabContent(tabs = list, pagerState = pagerState, contextProvider = contextProvider)

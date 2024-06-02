@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -20,15 +23,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.deltagames.R
 import com.example.deltagames.util.ContextProvider
-import com.example.deltagames.view.paymentScreen.PaymentScreen
-import com.example.deltagames.view.profileScreen.ProfileScreen
-import com.example.deltagames.view.searchScreen.SearchScreen
 import com.example.deltagames.view.addressScreen.AddAddressScreen
 import com.example.deltagames.view.addressScreen.ListAddressScreen
 import com.example.deltagames.view.cartScreen.CartScreen
 import com.example.deltagames.view.homeScreen.HomeScreen
+import com.example.deltagames.view.paymentScreen.PaymentScreen
 import com.example.deltagames.view.productDetailScreen.ProductDetail
+import com.example.deltagames.view.profileScreen.ProfileScreen
+import com.example.deltagames.view.searchScreen.SearchScreen
 import com.example.deltagames.view.settingScreen.SettingScreen
 import com.example.deltagames.viewModel.CartViewModel
 import com.example.deltagames.viewModel.HomeViewModel
@@ -48,7 +52,10 @@ import com.example.deltagames.viewModel.SharedProductViewModel
     }
 
     Scaffold (bottomBar = {
-        NavigationBar {
+        NavigationBar(
+           containerColor = colorResource(id = R.color.dark_blue_delta_games),
+            contentColor = Color.White,
+        ) {
             val navBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
             val currentDestinarion = navBackStackEntry?.destination
 
@@ -64,8 +71,20 @@ import com.example.deltagames.viewModel.SharedProductViewModel
                                   restoreState = true
                               }
                     },
-                    icon = { Icon(imageVector = navItem.icon, contentDescription = null)},
-                    label = { Text(text = navItem.label)}
+                    icon = { Icon(
+                        imageVector = navItem.icon,
+                        contentDescription = null,
+                    )},
+                    label = { Text(text = navItem.label)},
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = colorResource(id = R.color.dark_blue_delta_games),
+                        selectedIconColor = colorResource(id = R.color.orange_delta_games),
+                        selectedTextColor = colorResource(id = R.color.orange_delta_games),
+                        unselectedIconColor = Color.White,
+                        unselectedTextColor = Color.White,
+                        disabledIconColor = Color.Transparent,
+                        disabledTextColor = Color.Transparent
+                    )
                 )
             }
         }

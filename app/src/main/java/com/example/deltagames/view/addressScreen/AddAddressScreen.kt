@@ -89,7 +89,10 @@ fun AddAddressScreen(
 
         ){
             Column(modifier = Modifier.padding(16.dp)) {
-                Row (verticalAlignment = Alignment.CenterVertically){
+                Row (
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    ){
                     TextField(
                         keyboardOptions = KeyboardOptions(
                             capitalization = KeyboardCapitalization.None,
@@ -97,6 +100,7 @@ fun AddAddressScreen(
                             keyboardType = KeyboardType.Number
                         ),
                         modifier = Modifier
+                            .fillMaxWidth()
                             .padding(16.dp)
                             .border(
                                 width = 1.dp,
@@ -112,6 +116,19 @@ fun AddAddressScreen(
                                 imageVector = Icons.Default.LocationOn,
                                 contentDescription = "Icone de localização")
                         },
+                        trailingIcon = {
+                            IconButton(
+                                modifier = Modifier,
+                                onClick = { addressViewModel.fetchCepInfo(cep) }) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Search,
+                                    contentDescription = "Icone de Buscar",
+                                    tint = colorResource(id = R.color.dark_blue_delta_games),
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                )
+                            }
+                        },
                         placeholder = {
                             Text(text = "Digite seu CEP")
                         },
@@ -124,21 +141,6 @@ fun AddAddressScreen(
                         singleLine = true,
                         enabled = true
                     )
-
-
-                    IconButton(
-                        modifier = Modifier,
-                        onClick = { addressViewModel.fetchCepInfo(cep) }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Search,
-                            contentDescription = "Icone de Buscar",
-                            tint = Color.White,
-                            modifier = Modifier
-                                .background((colorResource(id = R.color.blue)))
-                                .padding(8.dp)
-
-                        )
-                    }
                 }
 
                 val cepInfo by addressViewModel.cepInfo.observeAsState()
@@ -171,7 +173,7 @@ fun AddAddressScreen(
                                     .fillMaxWidth()
                                     .padding(16.dp),
                                 shape = RoundedCornerShape(8.dp),
-                                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+                                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
                                 onClick = {
 
                                     addressViewModel.addAddress(Endereco(

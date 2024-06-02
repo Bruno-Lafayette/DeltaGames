@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,18 +47,19 @@ fun HorizontalCounterComponent(finalValue: Int, valueMax: Int, onValueChange: (I
                     .height(38.dp)
                     .width(38.dp)
                     .padding(2.dp),
-                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.cloud_white)),
+                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
             ) {
                 Text(
                     text = "-",
                     textAlign = TextAlign.Center,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    color = Color.White
                 )
             }
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = counter.toString(),
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.body1,
             )
             Spacer(modifier = Modifier.width(8.dp))
             Button(
@@ -72,12 +74,13 @@ fun HorizontalCounterComponent(finalValue: Int, valueMax: Int, onValueChange: (I
                     .height(38.dp)
                     .width(38.dp)
                     .padding(2.dp),
-                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.cloud_white)),
+                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
             ) {
                 Text(
                     text = "+",
                     textAlign = TextAlign.Center,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    color = Color.White
                 )
             }
         }

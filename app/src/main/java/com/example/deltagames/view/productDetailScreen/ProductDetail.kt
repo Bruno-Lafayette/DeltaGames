@@ -128,10 +128,9 @@ fun ProductDetail(
                             model = produto.IMAGENS_URL[page],
                             contentDescription = null,
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .height(280.dp),
-                            contentScale = ContentScale.Fit,
-                            alignment = Alignment.CenterStart
+                                .fillMaxWidth(),
+                            contentScale = ContentScale.FillBounds,
+                            alignment = Alignment.Center
                         )
                     }
                 }
@@ -176,7 +175,7 @@ fun ProductDetail(
                                 .fillMaxWidth()
                                 .padding(16.dp),
                             shape = RoundedCornerShape(8.dp),
-                            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+                            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
                             onClick = {
                                 vmCart.addProductCart(CarrinhoItem(vmUser.user!!.id, produto.PRODUTO_ID, finalValue)) { response ->
                                     response?.let {

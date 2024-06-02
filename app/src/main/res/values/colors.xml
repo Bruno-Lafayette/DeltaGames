@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cloud_white">#E2E8F0</color>
+    <color name="dark_orange_delta_games">#ff5942</color>
+    <color name="orange_delta_games">#ff7746</color>
+    <color name="dark_blue_delta_games">#01153b</color>
+    <color name="blue_delta_games">#053956</color>
 </resources>

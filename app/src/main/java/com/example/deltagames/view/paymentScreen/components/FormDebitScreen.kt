@@ -1,12 +1,16 @@
 package com.example.deltagames.view.paymentScreen.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
@@ -17,9 +21,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.deltagames.R
 import com.example.deltagames.model.CarrinhoItem
 import com.example.deltagames.model.cart
 import com.example.deltagames.util.ContextProvider
@@ -72,6 +78,10 @@ fun FormDebitScreen(
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             OutlinedTextField(
                 value = accountNumber,
                 onValueChange = { accountNumber = it },
@@ -80,7 +90,7 @@ fun FormDebitScreen(
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.weight(1f)
             )
             OutlinedTextField(
                 value = accountDigit,
@@ -90,10 +100,12 @@ fun FormDebitScreen(
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.weight(1f)
             )
+        }
 
-            // Campo para o nome do titular da conta
+
+        // Campo para o nome do titular da conta
             OutlinedTextField(
                 value = accountHolderName,
                 onValueChange = { accountHolderName = it },
@@ -118,7 +130,9 @@ fun FormDebitScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 16.dp)
+                    .padding(16.dp),
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
             ) {
                 Text("Enviar")
             }

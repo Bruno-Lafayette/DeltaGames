@@ -65,7 +65,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState){
             divider = {},
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
-                .background(colorResource(id = R.color.cloud_white))
+                .background(colorResource(id = R.color.dark_blue_delta_games))
                 .padding(4.dp)
             ,
             selectedTabIndex = pagerState.currentPage,
@@ -80,14 +80,14 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState){
                     selected = pagerState.currentPage == index,
                     modifier = if (pagerState.currentPage == index)
                         Modifier
-                            .background(colorResource(id = R.color.cloud_white))
+                            .background(colorResource(id = R.color.dark_blue_delta_games))
                             .clip(RoundedCornerShape(10.dp))
-                            .background(colorResource(id = R.color.white))
+                            .background(colorResource(id = R.color.orange_delta_games))
                     else
                         Modifier
-                            .background(colorResource(id = R.color.cloud_white))
+                            .background(colorResource(id = R.color.dark_blue_delta_games))
                             .clip(RoundedCornerShape(10.dp))
-                            .background(colorResource(id = R.color.cloud_white))
+                            .background(colorResource(id = R.color.dark_blue_delta_games))
                     ,
                     onClick = {
                         scope.launch {
@@ -97,7 +97,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState){
                     text = {
                         Text(
                             text = tabItem.labelButton,
-                            color = colorResource(id = R.color.black)
+                            color = colorResource(id = R.color.white)
                         )
                     },
                     icon = { /*TODO*/ })

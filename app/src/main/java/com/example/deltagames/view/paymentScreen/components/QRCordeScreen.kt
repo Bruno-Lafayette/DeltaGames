@@ -51,7 +51,7 @@ fun QRCodeScreen(
                 .fillMaxWidth()
                 .padding(16.dp),
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
             onClick = {
                 val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 clipboardManager.setPrimaryClip(ClipData.newPlainText("label", code))
@@ -65,7 +65,7 @@ fun QRCodeScreen(
                 .fillMaxWidth()
                 .padding(vertical = 28.dp, horizontal = 16.dp),
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
+            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.dark_blue_delta_games)),
             onClick = {
                 val order = cart.orderUser
                 cart.orderUser = null

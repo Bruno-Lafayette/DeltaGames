@@ -82,7 +82,6 @@ fun PaymentScreen(
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },
-                    modifier = Modifier.padding(top = contentPadding.calculateTopPadding())
                 ) {
                     OutlinedTextField(
                         readOnly = true,
