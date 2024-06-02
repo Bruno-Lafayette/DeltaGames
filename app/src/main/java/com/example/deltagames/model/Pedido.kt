@@ -21,3 +21,11 @@ data class Item (
     var item_qtd: Int,
     var item_preco: Double
 ): Parcelable
+
+object cart {
+    var orderUser: Pedido? = null
+        get() = field
+        set(value) {
+            field = value
+        }
+}

@@ -8,5 +8,6 @@ enum class Screens {
     ProductDetail,
     ListAddressScreen,
     AddAddressScreen,
-    SettingScreen
+    SettingScreen,
+    PaymentScreen
 }

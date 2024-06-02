@@ -21,14 +21,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.deltagames.R
+import com.example.deltagames.model.Endereco
+import com.example.deltagames.view.addressScreen.components.CardAddress
 import com.example.deltagames.view.navigation.Screens
 import com.example.deltagames.viewModel.AddressViewModel
 
@@ -36,9 +42,16 @@ import com.example.deltagames.viewModel.AddressViewModel
 @Composable
 fun ListAddressScreen(
     navController: NavController,
+    addressViewModel: AddressViewModel = AddressViewModel.getInstanceUnique(), // Obtenha a instância da ViewModel aqui
+
 ){
-    var addressViewModel = AddressViewModel.getInstanceUnique()
     val addressList by addressViewModel.listAddress.observeAsState(emptyList())
+    var addressListUpDate by remember { mutableStateOf<List<Endereco>?>(emptyList()) }
+    LaunchedEffect (key1 = addressList) {
+        addressViewModel.featchAddress()
+        addressListUpDate = addressList
+    }
+
     Scaffold (
         modifier = Modifier
             .background(Color.White)
@@ -66,11 +79,13 @@ fun ListAddressScreen(
             verticalArrangement = Arrangement.SpaceBetween
 
         ){
-            LazyColumn {
-                items(addressList){address ->
-                    Text(text = address.nome)
+                LazyColumn(
+                    modifier = Modifier
+                ) {
+                    items(addressListUpDate.orEmpty()) { address ->
+                        CardAddress(endereco = address, addressViewModel)
+                    }
                 }
-            }
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -79,11 +94,12 @@ fun ListAddressScreen(
                 colors = ButtonDefaults.buttonColors(colorResource(id = R.color.blue)),
                 onClick = {
                     navController.navigate(Screens.AddAddressScreen.name)
+
                 }
             ) {
                 Text(text = "Adicionar Novo")
             }
+            }
         }
 
-    }
 }

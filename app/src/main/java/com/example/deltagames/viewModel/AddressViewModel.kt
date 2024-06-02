@@ -9,10 +9,10 @@ import com.example.deltagames.repository.AddressRepository
 import kotlinx.coroutines.launch
 
 class AddressViewModel: ViewModel() {
+
     private val repository = AddressRepository()
     private val _listAddress = MutableLiveData<List<Endereco>>()
     val listAddress = _listAddress
-
     private val _cepInfo = MutableLiveData<Endereco?>()
     val cepInfo: MutableLiveData<Endereco?> = _cepInfo
 
@@ -32,8 +32,15 @@ class AddressViewModel: ViewModel() {
 
     fun addAddress(endereco: Endereco, callback: (ResponseAPI?) -> Unit){
         repository.addAddress(endereco){
-            callback(it)
             featchAddress()
+            callback(it)
+        }
+    }
+
+    fun removeAddress(endereco: Endereco, callback: (ResponseAPI?) -> Unit){
+        repository.removeAddress(endereco){
+            featchAddress()
+            callback(it)
         }
     }
 

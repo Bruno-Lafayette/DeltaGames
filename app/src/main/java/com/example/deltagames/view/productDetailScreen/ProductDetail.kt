@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -112,7 +114,8 @@ fun ProductDetail(
                         Modifier
                             .graphicsLayer {
                                 val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                                val scale = 0.85f + (1f - pageOffset.coerceIn(0f, 1f)) * (1f - 0.85f)
+                                val scale =
+                                    0.85f + (1f - pageOffset.coerceIn(0f, 1f)) * (1f - 0.85f)
                                 val alpha = 0.5f + (1f - pageOffset.coerceIn(0f, 1f)) * (1f - 0.5f)
                                 scaleX = scale
                                 scaleY = scale
@@ -159,9 +162,13 @@ fun ProductDetail(
                     modifier = Modifier.padding(8.dp)
 
                 )
-                Text(text = produto.PRODUTO_DESC,
-                    modifier = Modifier.padding(8.dp)
-                )
+                Box(modifier = Modifier
+                    .height(60.dp)
+                    .verticalScroll(rememberScrollState())){
+                    Text(text = produto.PRODUTO_DESC,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
                 if (isLoggedIn){
                     if (productIsActive){
                         Button(
@@ -178,6 +185,7 @@ fun ProductDetail(
                                         )
                                     }
                                 }
+                                navController.popBackStack()
                             }
                         ) {
                             Text(text = "Adicionar Carrinho")

@@ -1,12 +1,6 @@
-package com.example.deltagames.view.ProfileScreen.components
+package com.example.deltagames.view.profileScreen.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.unit.dp
-import com.example.deltagames.R
 import com.example.deltagames.util.ContextProvider
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
